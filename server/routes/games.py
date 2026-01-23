@@ -88,7 +88,7 @@ def create_game() -> tuple[Response, int]:
         return jsonify({"error": "Database integrity error"}), 400
 
 @games_bp.route('/api/games/<int:id>', methods=['PUT'])
-def update_game(id: int) -> tuple[Response, int] | Response:
+def update_game(id: int) -> tuple[Response, int]:
     # Find the game
     game = db.session.query(Game).filter(Game.id == id).first()
     
@@ -150,7 +150,7 @@ def delete_game(id: int) -> tuple[Response, int]:
         db.session.commit()
         
         # Return 204 No Content on successful deletion
-        return jsonify({}), 204
+        return '', 204
     except IntegrityError as e:
         db.session.rollback()
         return jsonify({"error": "Database integrity error"}), 400

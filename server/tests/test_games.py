@@ -449,6 +449,7 @@ class TestGamesRoutes(unittest.TestCase):
         
         # Assert
         self.assertEqual(response.status_code, 204)
+        self.assertEqual(response.data, b'')  # Should be empty for 204
         
         # Verify game is deleted
         response = self.client.get(self.GAMES_API_PATH)
